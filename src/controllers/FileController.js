@@ -1,19 +1,25 @@
 const File = require('../models/Files')
 
 exports.upload = async (req, res) => {
-    const { originalName: name, size, key, location: url = '' } = req.file
-    const { category } = req.body
+    const { originalName: name, size, key, location: url = '',  } = req.file
 
+   const { category = null, } = req.params
+
+ 
     const file = await File.create({
-        name,
-        size,
-        url,
-        key,
-        category: category
+       name,
+       size,
+       url,
+       key,
+       category
     })
+ 
+    if (file?._id) {
+       return res.status(201).json({ file })
+    }
 
-    res.status(500).json(file)
-}
+    res.status(500).json({})
+ }
 
 exports.delete = async (req, res) => {
 
@@ -47,7 +53,7 @@ exports.getAllFiles = async (req, res) => {
 
     try {
         const response = await File.find().exec()
-        return res.status(200).json(response)
+        return res.status(201).json(response)
     } catch (error) {
         res.status(500).json(error)
     }

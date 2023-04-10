@@ -23,11 +23,6 @@ const userSchema = new Schema({
       default: new Date(),
       select: false
    },
-   permissions: [{
-      type: String,
-      enum: ['Admin', 'Client', 'Auditor'],
-      default: 'Client'
-   }],
    token: {
       type: 'String',
       default: null

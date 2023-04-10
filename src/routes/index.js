@@ -8,7 +8,7 @@ const multerConfig = require('../config/multer')
 
 //User Routes
 routes.get('/user/list', checkAuth, UserController.list)
-routes.post('/user', checkAuth, UserController.add)
+routes.post('/user', UserController.add)
 routes.get('/user/:id', checkAuth, UserController.readById)
 routes.post('/user/login', UserController.login)
 routes.post('/user/loginbytoken', checkAuth, UserController.loginByToken)
@@ -18,7 +18,7 @@ routes.patch('/user/password/:id', checkAuth, UserController.updatePassword)
 
 // //File Routes
 routes.get('/files', FileController.getAllFiles)
-routes.post('/upload', multer(multerConfig).single('file'), FileController.upload)
+routes.post('/upload/:category', multer(multerConfig).single('file'), FileController.upload)
 routes.delete('/upload/:fileId', FileController.delete)
 
 module.exports = routes 
