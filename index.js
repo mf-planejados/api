@@ -2,17 +2,15 @@ require('dotenv').config()
 const express = require('express')
 const routes = require('./src/routes')
 const mongoose = require('mongoose')
-// const cors = require('cors')
+const cors = require('cors')
 
 const app = express()
 const port = process.env.PORT || 3000
 
 app.use(express.json())
-app.use('/', routes)
-
-app.get('/teste', (req, res) => {
-    res.send({ msg: 'entrou' })
-})
+app.use(express.urlencoded({ extended: true }))
+app.use(cors())
+app.use(routes)
 
 mongoose.connect(process.env.NEXT_PUBLIC_MONGODB_URL).then(res => {
    console.log('Connected to DB')
