@@ -10,7 +10,7 @@ const budgetSchema = new Schema({
         type: String,
         default: null
     },
-    url: {
+    telephone: {
         type: String,
         default: null
     },

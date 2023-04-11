@@ -22,15 +22,16 @@ routes.patch('/user/password/:id', checkAuth, UserController.updatePassword)
 
 // //File Routes
 routes.get('/files', FileController.getAllFiles)
+routes.get('/filesweb', FileController.getAllFilesWeb)
 routes.get('/files/:categoryId', FileController.getFilesByCategory)
 routes.post('/upload/:categoryId/:category', multer(multerConfig).single('file'), FileController.upload)
 routes.delete('/upload/:fileId', FileController.delete)
 
 //Budget Routes
-routes.get('/orçamento', checkAuth, BudgetController.list)
-routes.post('/orçamento', BudgetController.add)
-routes.delete('/orçamento/:id', checkAuth, BudgetController.delete)
-routes.patch('/orçamento/:id', checkAuth, BudgetController.update)
+routes.get('/budget', checkAuth, BudgetController.list)
+routes.post('/budget', BudgetController.add)
+routes.delete('/budget/:id', checkAuth, BudgetController.delete)
+routes.patch('/budget/:id', checkAuth, BudgetController.update)
 
 //CategoryHome Routes
 routes.get('/category', checkAuth, CategoryHomeController.list)
