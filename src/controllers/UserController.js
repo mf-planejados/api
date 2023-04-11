@@ -91,7 +91,8 @@ class UserController {
             },
             process.env.JWT_KEY,
          )
-         user.token = jwtToken;
+         user.token = jwtToken
+
          return res.status(200).json(user)
       } catch (error) {
          return res.status(500).json({ msg: 'API error' })
@@ -117,7 +118,10 @@ class UserController {
 
          if (user) {
             const jwtToken = jwt.sign({ userId: user._id }, process.env.JWT_KEY);
-            user.token = jwtToken;
+            user.token = jwtToken
+            console.log(user)
+            console.log(jwtToken)
+
 
             return res.status(200).json(user)
          }
