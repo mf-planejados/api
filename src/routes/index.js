@@ -14,7 +14,7 @@ routes.get('/', async (req, res) => {
 routes.get('/user/list', checkAuth, UserController.list)
 routes.post('/user', checkAuth, UserController.add)
 routes.get('/user/:id', checkAuth, UserController.readById)
-routes.post('/user/login', UserController.login)
+routes.post('user/login', UserController.login)
 routes.post('/user/loginbytoken', checkAuth, UserController.loginByToken)
 routes.delete('/user/:id', checkAuth, UserController.delete)
 routes.patch('/user/:id', checkAuth, UserController.update)
