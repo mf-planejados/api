@@ -29,9 +29,10 @@ routes.delete('/upload/:fileId', FileController.delete)
 
 //Budget Routes
 routes.get('/budget', checkAuth, BudgetController.list)
+routes.get('/budget/:budgetId', checkAuth, BudgetController.readById)
 routes.post('/budget', BudgetController.add)
-routes.delete('/budget/:id', checkAuth, BudgetController.delete)
-routes.patch('/budget/:id', checkAuth, BudgetController.update)
+routes.delete('/budget/:budgetId', checkAuth, BudgetController.delete)
+routes.patch('/budget/:budgetId', checkAuth, BudgetController.update)
 
 //CategoryHome Routes
 routes.get('/category', checkAuth, CategoryHomeController.list)

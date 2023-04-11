@@ -25,7 +25,6 @@ const budgetSchema = new Schema({
     createdAt: {
         type: Date,
         default: new Date(),
-        select: false
     },
 });
 
