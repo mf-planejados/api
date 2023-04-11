@@ -1,60 +1,70 @@
+const CategoryHome = require('../models/CategoryHome')
 const File = require('../models/Files')
 
 exports.upload = async (req, res) => {
-    const { originalName: name, size, key, location: url = '',  } = req.file
+   const { originalName: name, size, key, location: url = '', } = req.file
 
-   const { category = null, } = req.params
+   const { category = null, categoryId = null } = req.params
 
- 
-    const file = await File.create({
-       name,
-       size,
-       url,
-       key,
-       category
-    })
- 
-    if (file?._id) {
-       return res.status(201).json({ file })
-    }
+   const file = await File.create({
+      name,
+      size,
+      url,
+      key,
+      category
+   })
 
-    res.status(500).json({})
- }
+   const updatedData = { $push: { files: file._id } };
+
+   if (file?._id) {
+      if (categoryId) {
+         const updatedComodo = await CategoryHome.findByIdAndUpdate(categoryId, updatedData, { new: true })
+         return res.status(201).json({ file, updatedComodo: updatedComodo?._id })
+      }
+      return res.status(201).json({ file })
+   }
+   res.status(500).json({})
+}
 
 exports.delete = async (req, res) => {
 
-    const { fileId: _id } = req.params;
+   const { fileId: _id } = req.params;
+   const { categoryId = null } = req.query;
 
-    try {
-        const response = await File.findByIdAndDelete(_id)
-        res.status(200).json(response)
-    } catch (error) {
-        res.status(500).json(error)
-    }
+   try {
+      if (categoryId) {
+         const updatedcCategoryFiles = await CategoryHome.findByIdAndUpdate(categoryId, { $pull: { files: _id } }, { new: true })
+      }
+
+      const response = await File.findByIdAndDelete(_id)
+      res.status(200).json(response)
+   } catch (error) {
+      res.status(500).json(error)
+   }
 }
 
-// exports.getFilesByCompany = async (req, res) => {
+exports.getFilesByCategory = async (req, res) => {
 
-//     try {
-//         const { userId } = req.params;
-//         const company = await Company.findById(companyId).select('files')
+   try {
+      const { categoryId } = req.params;
+      const category = await CategoryHome.findById(categoryId).select('files')
 
-//         if (company._id) {
-//             const { files: companyFiles } = company;
-//             const response = await File.find({ _id: { $in: companyFiles } })
-//             res.status(200).json(response)
-//         }
-//     } catch (error) {
-//         res.status(500).json(error)
-//     }
-// }
+      if (category._id) {
+         const { files: categoryFiles } = category;
+         const response = await File.find({ _id: { $in: categoryFiles } })
+         res.status(200).json(response)
+      }
+   } catch (error) {
+      res.status(500).json(error)
+   }
+}
 
 exports.getAllFiles = async (req, res) => {
 
-    try {
-        const response = await File.find().exec()
-        return res.status(201).json(response)
-    } catch (error) {
-        res.status(500).json(error)
-    }
+   try {
+      const response = await CategoryHome.find().populate('files').select('files name')
+      return res.status(200).json(response)
+   } catch (error) {
+      res.status(500).json(error)
+   }
 }
