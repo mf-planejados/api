@@ -119,10 +119,6 @@ class UserController {
          if (user) {
             const jwtToken = jwt.sign({ userId: user._id }, process.env.NEXT_PUBLIC_JWT_KEY);
             user.token = jwtToken
-            console.log(user)
-            console.log(jwtToken)
-
-
             return res.status(200).json(user)
          }
 

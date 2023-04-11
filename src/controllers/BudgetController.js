@@ -47,8 +47,7 @@ class CompanyController {
       try {
          const { budgetId } = req.params
          const response = await BudgetModels.findByIdAndDelete(budgetId).exec()
-
-         res.status(200).json(response)
+         res.status(201).json(response)
       } catch (error) {
          res.status(400).json({ error })
       }
