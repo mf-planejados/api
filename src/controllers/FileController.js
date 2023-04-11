@@ -63,6 +63,17 @@ exports.getAllFiles = async (req, res) => {
 
    try {
       const response = await CategoryHome.find().populate('files').select('files name')
+      console.log(response)
+      return res.status(200).json(response)
+   } catch (error) {
+      res.status(500).json(error)
+   }
+}
+
+exports.getAllFilesWeb = async (req, res) => {
+   try {
+      const response = await File.find()
+      console.log(response)
       return res.status(200).json(response)
    } catch (error) {
       res.status(500).json(error)
