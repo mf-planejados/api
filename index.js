@@ -8,9 +8,11 @@ const app = express()
 const port = process.env.PORT || 3000
 
 app.use(express.json())
-app.use(express.urlencoded({ extended: true }))
-// app.use(cors())
-app.use('/',routes)
+app.use('/', routes)
+
+app.get('/teste', (req, res) => {
+    res.send({ msg: 'entrou' })
+})
 
 mongoose.connect(process.env.NEXT_PUBLIC_MONGODB_URL).then(res => {
    console.log('Connected to DB')
