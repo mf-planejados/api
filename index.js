@@ -8,6 +8,13 @@ const app = express()
 const port = process.env.PORT || 3000
 
 app.use(express.json())
+app.use('/', routes)
+
+app.get('/teste', (req, res) => {
+    res.send({ msg: 'entrou' })
+})
+
+app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
 app.use(cors())
 app.use(routes)
