@@ -1,18 +1,11 @@
 require('dotenv').config()
 const express = require('express')
-const routes = require('./src/index')
+const routes = require('./src/routes')
 const mongoose = require('mongoose')
 const cors = require('cors')
 
 const app = express()
 const port = process.env.PORT || 3000
-
-app.use(express.json())
-app.use('/', routes)
-
-app.get('/teste', (req, res) => {
-    res.send({ msg: 'entrou' })
-})
 
 app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
