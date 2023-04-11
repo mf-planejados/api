@@ -89,7 +89,7 @@ class UserController {
             {
                userId: user._id,
             },
-            process.env.JWT_KEY,
+            process.env.NEXT_PUBLIC_JWT_KEY,
          )
          user.token = jwtToken
 
@@ -117,7 +117,7 @@ class UserController {
          const user = await UserModel.findOne({ _id: userId })
 
          if (user) {
-            const jwtToken = jwt.sign({ userId: user._id }, process.env.JWT_KEY);
+            const jwtToken = jwt.sign({ userId: user._id }, process.env.NEXT_PUBLIC_JWT_KEY);
             user.token = jwtToken
             console.log(user)
             console.log(jwtToken)

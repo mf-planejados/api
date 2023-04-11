@@ -12,7 +12,7 @@ app.use(express.urlencoded({ extended: true }))
 app.use(cors())
 app.use(routes)
 
-mongoose.connect(process.env.MONGODB_URL).then(res => {
+mongoose.connect(process.env.NEXT_PUBLIC_MONGODB_URL).then(res => {
    console.log('Connected to DB')
 }).catch(err => {
    console.log('ERRO:', err.errors)
