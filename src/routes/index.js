@@ -8,6 +8,9 @@ const multerConfig = require('../config/multer')
 const CategoryHomeController = require('../controllers/CategoryHomeController')
 
 //User Routes
+routes.get('/', async (req, res) => {
+    return res.status(200).send({ msg: 'Public Route' })
+})
 routes.get('/user/list', checkAuth, UserController.list)
 routes.post('/user', checkAuth, UserController.add)
 routes.get('/user/:id', checkAuth, UserController.readById)
