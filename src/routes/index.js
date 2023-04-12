@@ -9,7 +9,7 @@ const CategoryHomeController = require('../controllers/CategoryHomeController')
 
 //User Routes
 routes.get('/', async (req, res) => {
-    return res.status(200).send({ msg: 'Public Route' })
+    return res.status(200).json({ msg: 'Public Route' })
 })
 routes.post('/user/login', UserController.login)
 routes.get('/user/list', checkAuth, UserController.list)
