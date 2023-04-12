@@ -1,4 +1,5 @@
 const BudgetModels = require('../models/Budget')
+const sgMail = require('@sendgrid/mail')
 
 class CompanyController {
 
@@ -15,6 +16,33 @@ class CompanyController {
       try {
          const { budget } = req.body;
          const response = await BudgetModels.create(budget)
+
+         let html = `
+         <div style="background-color: #f1f1f1; padding: 30px; position: relative;">
+            <div style="max-width: 400px; background-color: #fff; padding: 30px; border-radius: 12px; position: absolute; margin: auto; left: 0; right: 0; top: 0; bottom: 0;">
+            <p style="font-size: 18px; text-align: center;">Nome: ${budget?.name},</p>  
+            <p style="font-size: 18px; text-align: center;">E-mail: ${budget?.email},</p>  
+            <p style="font-size: 18px; text-align: center;">Contato: ${budget?.telephone},</p>
+            <p style="font-size: 18px;">Menssagem:</p>
+            <p style="font-size: 18px;">${budget?.message}</p>
+            <p style="font-size: 18px; text-align: center;">Acesse o painel M&F Admin para analisar o orçamento:</p>
+            <p style="font-size: 18px;">https://admin-mfplanejados.vercel.app/</p>
+            </div>
+         </div>`
+
+         sgMail.setApiKey(process.env.NEXT_PUBLIC_SENDGRID_API_KEY);
+
+         const msg = {
+            to: 'marcusvini6277@gmail.com',
+            from: budget?.email,
+            subject: budget?.subject,
+            html
+         };
+
+         sgMail.send(msg, () => console.log({
+            message: `Orçamento enviado: ${budget?.email}`,
+         }));
+
          res.status(201).json(response)
       } catch (err) {
          res.status(400).json({ success: false, error: err.response })

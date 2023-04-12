@@ -47,7 +47,7 @@ class UserController {
             <div style="max-width: 400px; background-color: #fff; padding: 30px; border-radius: 12px; position: absolute; margin: auto; left: 0; right: 0; top: 0; bottom: 0;">
                <p style="font-size: 18px; text-align: center;">${newUser?.name},</p>
                <p style="font-size: 18px; text-align: center;">Você já pode acessar o painel M&F Admin:</p>
-               <p style="font-size: 18px;">https://clientes.green4t.com/</p>
+               <p style="font-size: 18px;">https://admin-mfplanejados.vercel.app</p>
                <p style="font-size: 18px;">Usuário: ${email}</p>
                <p style="font-size: 18px;">Senha: ${senha}</p>
             </div>
