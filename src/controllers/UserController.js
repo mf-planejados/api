@@ -83,7 +83,7 @@ class UserController {
 
          const result = await bcrypt.compare(password, user.password)
 
-         if (!result) return res.status(401).json({ msg: 'Invalid Credentials' })
+         if (!result) return res.status(401).send({ msg: 'Invalid Credentials' })
 
          const jwtToken = jwt.sign(
             {
@@ -93,9 +93,9 @@ class UserController {
          )
          user.token = jwtToken
 
-         return res.status(200).json(user)
+         return res.status(200).send(user)
       } catch (error) {
-         return res.status(500).json({ msg: 'API error' })
+         return res.status(500).send({ msg: 'API error' })
       }
    }
 
