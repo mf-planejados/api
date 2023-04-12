@@ -19,9 +19,9 @@ app.use(cors())
 const port = process.env.PORT || 3000
 
 //User Routes
-// app.get('/', async (req, res) => {
-//    return res.status(200).send({ msg: 'Public Route' })
-// })
+app.get('/', async (req, res) => {
+   return res.status(201).json('Public Route')
+})
 app.post('/user/login', UserController.login)
 app.get('/user/list', checkAuth, UserController.list)
 app.post('/user', checkAuth, UserController.add)
