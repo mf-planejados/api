@@ -79,31 +79,24 @@ class UserController {
 
       try {
          const user = await UserModel.findOne({ email })
-         return res.status(201).json(user)
+            .select('+password')
 
+         const result = await bcrypt.compare(password, user.password)
+
+         if (!result) return res.status(401).json({ msg: 'Invalid Credentials' })
+
+         const jwtToken = jwt.sign(
+            {
+               userId: user._id,
+            },
+            process.env.NEXT_PUBLIC_JWT_KEY,
+         )
+         user.token = jwtToken
+
+         return res.status(200).json(user)
       } catch (error) {
          return res.status(500).json({ msg: 'API error' })
       }
-      // try {
-      //    const user = await UserModel.findOne({ email })
-      //       .select('+password')
-
-      //    const result = await bcrypt.compare(password, user.password)
-
-      //    if (!result) return res.status(401).json({ msg: 'Invalid Credentials' })
-
-      //    const jwtToken = jwt.sign(
-      //       {
-      //          userId: user._id,
-      //       },
-      //       process.env.NEXT_PUBLIC_JWT_KEY,
-      //    )
-      //    user.token = jwtToken
-
-      //    return res.status(200).json(user)
-      // } catch (error) {
-      //    return res.status(500).json({ msg: 'API error' })
-      // }
    }
 
    readById = async (req, res) => {
