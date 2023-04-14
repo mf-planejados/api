@@ -4,14 +4,17 @@ const File = require('../models/Files')
 exports.upload = async (req, res) => {
    const { originalName: name, size, key, location: url = '', } = req.file
 
-   const { category = null, categoryId = null } = req.params
+   const { category = null, categoryId = null, section = null, namePerfil = null, level = null } = req.params
 
    const file = await File.create({
       name,
       size,
       url,
       key,
-      category
+      category,
+      section,
+      namePerfil,
+      level
    })
 
    const updatedData = { $push: { files: file._id } };
@@ -59,6 +62,7 @@ exports.getFilesByCategory = async (req, res) => {
    }
 }
 
+
 exports.getAllFiles = async (req, res) => {
 
    try {
@@ -75,6 +79,21 @@ exports.getAllFilesWeb = async (req, res) => {
       const response = await File.find()
       console.log(response)
       return res.status(200).json(response)
+   } catch (error) {
+      res.status(500).json(error)
+   }
+}
+
+exports.getFilesBySection = async (req, res) => {
+
+   const { section } = req.params
+
+   console.log(section)
+
+   try {
+      const response = await File.find({ section: section })
+      console.log(response)
+      return res.status(201).json(response)
    } catch (error) {
       res.status(500).json(error)
    }
