@@ -4,7 +4,11 @@ const File = require('../models/Files')
 exports.upload = async (req, res) => {
    const { originalName: name, size, key, location: url = '', } = req.file
 
-   const { category = null, categoryId = null, section = null, namePerfil = null, level = null } = req.params
+   const { categoryId = null, section = null, namePerfil = null, level = null } = req.params
+
+   const response = await CategoryHome.findById(categoryId)
+
+   let category = response?.name
 
    const file = await File.create({
       name,
