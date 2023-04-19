@@ -33,7 +33,7 @@ class CompanyController {
          sgMail.setApiKey(process.env.NEXT_PUBLIC_SENDGRID_API_KEY);
 
          const msg = {
-            to: 'marcusvini6277@gmail.com',
+            to: 'marcusvini6277@gmail.com, edermarce1@yahoo.com.br',
             from: budget?.email,
             subject: budget?.subject,
             html
