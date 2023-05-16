@@ -71,7 +71,6 @@ exports.getAllFiles = async (req, res) => {
 
    try {
       const response = await CategoryHome.find().populate('files').select('files name')
-      console.log(response)
       return res.status(200).json(response)
    } catch (error) {
       res.status(500).json(error)
@@ -90,12 +89,39 @@ exports.getAllFilesWeb = async (req, res) => {
 
 exports.getFilesBySection = async (req, res) => {
 
-   const { section } = req.params
-
-   console.log(section)
+   const { section = '' } = req.query
+   console.log('section', section)
 
    try {
-      const response = await File.find({ section: section })
+
+      // const response = await CategoryHome.find().populate('files').select('files name')
+      const response = await CategoryHome.aggregate([
+         {
+            $lookup: {
+               from: 'files',
+               localField: 'files',
+               foreignField: '_id',
+               as: 'file'
+            }
+         },
+         {
+            $unwind: '$file'
+         },
+         {
+            $match: {
+               'file.section': section // aqui você deve substituir 'section' pelo valor desejado
+            }
+         },
+         {
+            $group: {
+               _id: '$file.section',
+               files: { $push: '$file' }
+            }
+         }
+      ])
+      // const arquivos = response.map(categoria => {
+      //    return categoria.files.filter(file => file.section == section);
+      // });
       console.log(response)
       return res.status(201).json(response)
    } catch (error) {
