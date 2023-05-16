@@ -24,7 +24,7 @@ routes.patch('/user/password/:id', checkAuth, UserController.updatePassword)
 routes.get('/files', FileController.getAllFiles)
 routes.get('/filesweb', FileController.getAllFilesWeb)
 routes.get('/files/:categoryId', FileController.getFilesByCategory)
-routes.get('/files/:section', FileController.getFilesBySection)
+routes.get('/file/section', FileController.getFilesBySection)
 routes.post('/upload/:categoryId/:namePerfil/:level/:section', multer(multerConfig).single('file'), FileController.upload)
 routes.delete('/upload/:fileId', FileController.delete)
 
