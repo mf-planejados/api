@@ -6,7 +6,7 @@ const { checkAuth } = require('../helpers/auth/checkAuth')
 const multer = require('multer')
 const multerConfig = require('../config/multer')
 const CategoryHomeController = require('../controllers/CategoryHomeController')
-const DepositionsController = require('../controllers/DepositionsController')
+const TestimonialController = require('../controllers/TestimonialController')
 
 //User Routes
 routes.get('/', async (req, res) => {
@@ -37,11 +37,11 @@ routes.delete('/budget/:budgetId', checkAuth, BudgetController.delete)
 routes.patch('/budget/:budgetId', checkAuth, BudgetController.update)
 
 //Budget Routes
-routes.get('/depositions', DepositionsController.list)
-routes.get('/deposition/:depositionId', checkAuth, DepositionsController.readById)
-routes.post('/deposition/create', DepositionsController.add)
-routes.delete('/deposition/:depositionId', checkAuth, DepositionsController.delete)
-routes.patch('/deposition/:depositionId', checkAuth, DepositionsController.update)
+routes.get('/testimonials', TestimonialController.list)
+routes.get('/testimonial/:testimonialId', checkAuth, TestimonialController.readById)
+routes.post('/testimonial/create', TestimonialController.add)
+routes.delete('/testimonial/delete/:testimonialId', checkAuth, TestimonialController.delete)
+routes.patch('/testimonial/update/:testimonialId', checkAuth, TestimonialController.update)
 
 //CategoryHome Routes
 routes.get('/category', checkAuth, CategoryHomeController.list)

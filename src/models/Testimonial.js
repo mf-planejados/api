@@ -1,7 +1,7 @@
 const mongoose = require("mongoose");
 const { Schema } = mongoose;
 
-const DepositionsSchema = new Schema({
+const TestimonialSchema = new Schema({
     message: {
         type: String,
         required: "O campo 'nome' é obrigatório"
@@ -17,7 +17,7 @@ const DepositionsSchema = new Schema({
     },
 });
 
-const Depositions = mongoose.model("Depositions", DepositionsSchema);
+const Testimonial = mongoose.model("Testimonial", TestimonialSchema);
 
-module.exports = Depositions;
+module.exports = Testimonial;
 
