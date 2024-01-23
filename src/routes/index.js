@@ -6,6 +6,7 @@ const { checkAuth } = require('../helpers/auth/checkAuth')
 const multer = require('multer')
 const multerConfig = require('../config/multer')
 const CategoryHomeController = require('../controllers/CategoryHomeController')
+const DepositionsController = require('../controllers/DepositionsController')
 
 //User Routes
 routes.get('/', async (req, res) => {
@@ -34,6 +35,13 @@ routes.get('/budget/:budgetId', checkAuth, BudgetController.readById)
 routes.post('/budget', BudgetController.add)
 routes.delete('/budget/:budgetId', checkAuth, BudgetController.delete)
 routes.patch('/budget/:budgetId', checkAuth, BudgetController.update)
+
+//Budget Routes
+routes.get('/depositions', DepositionsController.list)
+routes.get('/deposition/:depositionId', checkAuth, DepositionsController.readById)
+routes.post('/deposition/create', DepositionsController.add)
+routes.delete('/deposition/:depositionId', checkAuth, DepositionsController.delete)
+routes.patch('/deposition/:depositionId', checkAuth, DepositionsController.update)
 
 //CategoryHome Routes
 routes.get('/category', checkAuth, CategoryHomeController.list)
