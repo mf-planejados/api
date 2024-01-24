@@ -1,6 +1,8 @@
 const routes = require('express').Router()
 const UserController = require('../controllers/UserController')
 const FileController = require('../controllers/FileController')
+const FileProductController = require('../controllers/FileProductController')
+const ProductController = require('../controllers/ProductController')
 const BudgetController = require('../controllers/BudgetController')
 const { checkAuth } = require('../helpers/auth/checkAuth')
 const multer = require('multer')
@@ -28,6 +30,20 @@ routes.get('/files/:categoryId', FileController.getFilesByCategory)
 routes.get('/file/section', FileController.getFilesBySection)
 routes.post('/upload/:categoryId/:namePerfil/:level/:section', multer(multerConfig).single('file'), FileController.upload)
 routes.delete('/upload/:fileId', FileController.delete)
+
+
+// //File Routes
+routes.post('/product/file/upload/:productId', multer(multerConfig).single('file'), FileProductController.upload)
+routes.delete('/product/file/delete/:fileId', FileProductController.delete)
+
+
+//Product Routes
+routes.get('/products', ProductController.list)
+routes.get('/product/:productId', ProductController.readById)
+routes.post('/product/create', ProductController.add)
+routes.delete('/product/delete/:productId', checkAuth, ProductController.delete)
+routes.patch('/product/update/:productId', checkAuth, ProductController.update)
+
 
 //Budget Routes
 routes.get('/budget', checkAuth, BudgetController.list)

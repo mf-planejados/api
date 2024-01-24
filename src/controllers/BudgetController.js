@@ -1,5 +1,6 @@
 const BudgetModels = require('../models/Budget')
 const sgMail = require('@sendgrid/mail')
+const { budgetHtml } = require('../ultilis/htmlEmails/sendBudget')
 
 class CompanyController {
 
@@ -17,25 +18,14 @@ class CompanyController {
          const { budget } = req.body;
          const response = await BudgetModels.create(budget)
 
-         let html = `
-         <div style="background-color: #f1f1f1; padding: 30px; position: relative;">
-            <div style="max-width: 400px; background-color: #fff; padding: 30px; border-radius: 12px; position: absolute; margin: auto; left: 0; right: 0; top: 0; bottom: 0;">
-            <p style="font-size: 18px; text-align: center;">Nome: ${budget?.name},</p>  
-            <p style="font-size: 18px; text-align: center;">E-mail: ${budget?.email},</p>  
-            <p style="font-size: 18px; text-align: center;">Contato: ${budget?.telephone},</p>
-            <p style="font-size: 18px;">Menssagem:</p>
-            <p style="font-size: 18px;">${budget?.message}</p>
-            <p style="font-size: 18px; text-align: center;">Acesse o painel M&F Admin para analisar o orçamento:</p>
-            <p style="font-size: 18px;">https://admin-mfplanejados.vercel.app/</p>
-            </div>
-         </div>`
+         let html = await budgetHtml(budget)
 
          sgMail.setApiKey(process.env.NEXT_PUBLIC_SENDGRID_API_KEY);
 
          const msg = {
-            to: ['marcusvini6277@gmail.com', 'edermarce1@yahoo.com.br'],
+            to: ['edermarce1@yahoo.com.br', 'marcusvini6277@gmail.com'],
             from: budget?.email,
-            subject: budget?.subject,
+            subject: 'Orçamento - Contato via site',
             html
          };
 
