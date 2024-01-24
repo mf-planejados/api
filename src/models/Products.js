@@ -26,7 +26,7 @@ const productSchema = new Schema({
         default: 0,
         min: 0
     },
-    images: [{
+    files: [{
         type: mongoose.Schema.Types.ObjectId,
         ref: "FileProduct",
         default: null,

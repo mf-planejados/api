@@ -57,7 +57,7 @@ class UserController {
 
          const msg = {
             to: email,
-            from: 'marketing@mfplanejados.com.br',
+            from: 'edermarce1@yahoo.com.br',
             subject: 'M&F - Credenciais de Acesso',
             html
          };
