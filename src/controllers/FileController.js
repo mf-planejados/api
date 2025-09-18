@@ -87,6 +87,15 @@ exports.getAllFilesWeb = async (req, res) => {
    }
 }
 
+exports.getFilesBySectionWeb = async (req, res) => {
+   try { 
+   const response = await File.find({ section: 'Galeria' })
+   return res.status(200).json(response)
+   } catch (error) {
+      res.status(500).json(error)
+   }
+}
+
 exports.getFilesBySection = async (req, res) => {
 
    const { section = '' } = req.query
